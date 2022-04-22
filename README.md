@@ -6,4 +6,6 @@
 ![alt text](https://img.shields.io/github/last-commit/moritz313/External-CSGO-Triggerbot "Badge")
 
 
-External CSGO Triggerbot made with java
+## External CSGO Triggerbot made with java
+To be used exclusively on private servers and for Educational Purpose only.
+I am not responsible for bans or anything similar.
