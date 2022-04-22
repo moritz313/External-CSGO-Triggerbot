@@ -26,8 +26,11 @@ Since the triggerbot reacts to color changes, there are many false starts. It do
 ## Preview:
 https://user-images.githubusercontent.com/66872504/164758540-1c0f1974-ce6b-46e0-8b2d-002383423d49.mp4
 
+## Overlay:
+I'm currently working on an overlay that shows you the color that the triggerbot is currently remembering, etc.
+It is only visible when using csgo in windowed fullscreen or windowed mode and looks like this:
 
-
+![alt text](https://i.imgur.com/ZWRYnu9.png "Main Banner")
 
 
 ## Used Libraries:
