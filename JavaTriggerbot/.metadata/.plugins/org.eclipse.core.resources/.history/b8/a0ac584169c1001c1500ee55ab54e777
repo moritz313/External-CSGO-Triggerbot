@@ -1,0 +1,136 @@
+
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
+
+public class GlobalKeyListenerExample implements NativeKeyListener {
+	public static void main2(String[] args) {
+		final JFrame frame = new JFrame("Snapfame ");
+		 
+        try {
+			frame.getContentPane().add(new Gui());
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        frame.pack();
+   
+        frame.setVisible(true);
+        frame.setIconImage(null);
+        frame.setBackground(Color.BLACK);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+        try {
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(new URL("https://i.imgur.com/VGV1s6W.png")));
+		} catch (MalformedURLException e) {
+			
+		}
+        
+
+	}
+	
+	public void nativeKeyPressed(NativeKeyEvent e) {				
+		System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
+
+		if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
+            		try {
+                		GlobalScreen.unregisterNativeHook();
+            		} catch (NativeHookException nativeHookException) {
+                		nativeHookException.printStackTrace();
+            		}
+        	}
+	}
+
+	public void nativeKeyReleased(NativeKeyEvent e) {
+		System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
+		if(NativeKeyEvent.getKeyText(e.getKeyCode()) == "X") {
+			new Thread(() -> {
+				int i = 1;
+				 Dimension size
+		            = Toolkit.getDefaultToolkit().getScreenSize();
+		        
+		        // width will store the width of the screen
+		        int width = (int)size.getWidth();
+		        
+		        // height will store the height of the screen
+		        int height = (int)size.getHeight();
+		        
+		        System.out.println("Current Screen resolution : "
+		                           + "width : " + width
+		                           + " height : " + height);
+		        
+		        int X = width / 2 + 5;
+		        int Y = height / 2 + 5;
+				
+				 try {
+					 Robot robot = new Robot();
+					 //robot.mouseMove(X, Y); 
+					
+					 TimeUnit.SECONDS.sleep(1);
+					 Color color = robot.getPixelColor(X, Y);
+						System.out.println("Red   = " + color.getRed());
+						System.out.println("Green = " + color.getGreen());
+						System.out.println("Blue  = " + color.getBlue());
+						
+						
+						for(i = 1; i > 0; i++) {
+							Color color2 = robot.getPixelColor(X, Y);
+							if(color.getRed() != color2.getRed() || color.getGreen() != color2.getGreen() || color.getBlue() != color2.getBlue()) {
+								System.out.println("Shoot! ");
+								robot.mousePress(16);
+								robot.mouseRelease(16);
+								 
+								System.out.println("Red   = " + color2.getRed());
+								System.out.println("Green = " + color2.getGreen());
+								System.out.println("Blue  = " + color2.getBlue());
+								i = -1;
+							}
+
+						
+							
+							}
+				} catch (InterruptedException e2) {
+				
+					e2.printStackTrace();
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+			}).start();
+		}
+	}
+
+	public void nativeKeyTyped(NativeKeyEvent e) {
+		System.out.println("Key Typed: " + e.getKeyText(e.getKeyCode()));
+	}
+
+	public static void main(String[] args) {
+		try {
+			GlobalScreen.registerNativeHook();
+		}
+		catch (NativeHookException ex) {
+			System.err.println("There was a problem registering the native hook.");
+			System.err.println(ex.getMessage());
+
+			System.exit(1);
+		}
+
+		GlobalScreen.addNativeKeyListener(new GlobalKeyListenerExample());
+	}
+}

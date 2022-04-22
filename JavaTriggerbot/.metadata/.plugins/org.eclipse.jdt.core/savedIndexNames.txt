@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\morit\Desktop\External-CSGO-Triggerbot\JavaTriggerbot\.metadata\.plugins\org.eclipse.jdt.core
+3543422066.index
+2090946827.index
+789696607.index

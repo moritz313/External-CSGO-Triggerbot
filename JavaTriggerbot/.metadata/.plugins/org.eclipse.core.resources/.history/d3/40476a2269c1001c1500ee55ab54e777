@@ -1,0 +1,35 @@
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javax.swing.JFrame;
+
+public class Main {
+
+	public static void main(String[] args) {
+		final JFrame frame = new JFrame("Snapfame ");
+		 
+        try {
+			frame.getContentPane().add(new Gui());
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        frame.pack();
+   
+        frame.setVisible(true);
+        frame.setIconImage(null);
+        frame.setBackground(Color.BLACK);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       
+        try {
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(new URL("https://i.imgur.com/VGV1s6W.png")));
+		} catch (MalformedURLException e) {
+			
+		}
+        
+
+	}
+
+}
