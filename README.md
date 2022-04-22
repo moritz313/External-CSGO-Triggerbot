@@ -9,3 +9,6 @@
 ## External CSGO Triggerbot made with java
 To be used exclusively on private servers and for Educational Purpose only.
 I am not responsible for bans or anything similar.
+
+## Used Libraries:
+[JNativeHook: Global keyboard and mouse listeners for Java](https://github.com/kwhat/jnativehook)
