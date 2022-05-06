@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.JButton;
@@ -99,13 +101,18 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 		System.out.println("Starting..");
 		
 		//Overlay. Note: Works only in Borderlesswindow mode!
-		JFrame frame = new JFrame("Transparent Windows");
+		JFrame frame = new JFrame("Trigger HUD");
         frame.setUndecorated(true);
         frame.setBackground(new Color(0, 0, 0, 0));
         frame.setAlwaysOnTop(true);      
         frame.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", false);              
         frame.getContentPane().setLayout(new java.awt.BorderLayout());
-        frame.getContentPane().add(ColorPreview, java.awt.BorderLayout.NORTH);      
+        frame.getContentPane().add(ColorPreview, java.awt.BorderLayout.NORTH); 
+        try {
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(new URL("https://i.imgur.com/qkXvGpd.png")));
+		} catch (MalformedURLException e) {
+			
+		}
         frame.setVisible(true);
         frame.pack();
 		

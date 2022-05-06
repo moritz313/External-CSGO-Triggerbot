@@ -4,12 +4,13 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
@@ -18,19 +19,20 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 
 public class GlobalKeyListenerExample implements NativeKeyListener {
 	
+	static  JButton ColorPreview = new JButton("Color");
 	
 	public void nativeKeyPressed(NativeKeyEvent e) {				
-		//System.out.println("Key Pressed: " + NativeKeyEvent.getKeyText(e.getKeyCode()));sad
-//		if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
-//            		try {
-//                		GlobalScreen.unregisterNativeHook();
-//            		} catch (NativeHookException nativeHookException) {
-//                		nativeHookException.printStackTrace();
-//            		}
-//        	}
+		
+		if (e.getKeyCode() == NativeKeyEvent.VC_SPACE) {
+			
+	            		
+        }
 	}
+	
+	
 
 	public void nativeKeyReleased(NativeKeyEvent e) {
+		
 		
 		if(NativeKeyEvent.getKeyText(e.getKeyCode()) == "O") {
 			System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
@@ -52,8 +54,9 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 		        int Y = height / 2 + 5;				
 				 try {
 					 Robot robot = new Robot();					 					
-					 TimeUnit.MILLISECONDS.sleep(50);
+					 TimeUnit.MILLISECONDS.sleep(200);
 					 Color color = robot.getPixelColor(X, Y);
+					 ColorPreview.setBackground(new java.awt.Color(color.getRed(),color.getGreen(),color.getBlue()));
 //						System.out.println("Red   = " + color.getRed());
 //						System.out.println("Green = " + color.getGreen());
 //						System.out.println("Blue  = " + color.getBlue());
@@ -65,6 +68,7 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 								System.out.println("Shoot! ");
 								robot.mousePress(16);
 								robot.mouseRelease(16);
+								
 								 
 								System.out.println("Red   = " + (color2.getRed() - color.getRed()));
 								System.out.println("Green = " + (color2.getGreen() -color.getGreen()));
@@ -95,19 +99,22 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 
 	public static void main(String[] args) {
 		System.out.println("Starting..");
-//		JFrame frame = new JFrame("Transparent Windows");
-//        frame.setUndecorated(true);
-//        frame.setBackground(new Color(0, 0, 0, 0));
-//        frame.setAlwaysOnTop(true);
-//        // Without this, the window is draggable from any non transparent
-//        // point, including points  inside textboxes.
-//        frame.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", false);
-//
-//        frame.getContentPane().setLayout(new java.awt.BorderLayout());
-//        frame.getContentPane().add(new JLabel("yoyo"), java.awt.BorderLayout.NORTH);
-//      
-//        frame.setVisible(true);
-//        frame.pack();
+		
+		//Overlay. Note: Works only in Borderlesswindow mode!
+		JFrame frame = new JFrame("Transparent Windows");
+        frame.setUndecorated(true);
+        frame.setBackground(new Color(0, 0, 0, 0));
+        frame.setAlwaysOnTop(true);      
+        frame.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", false);              
+        frame.getContentPane().setLayout(new java.awt.BorderLayout());
+        frame.getContentPane().add(ColorPreview, java.awt.BorderLayout.NORTH); 
+        try {
+			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(new URL("https://i.imgur.com/aldQIxC.png")));
+		} catch (MalformedURLException e) {
+			
+		}
+        frame.setVisible(true);
+        frame.pack();
 		
 		try {
 			GlobalScreen.registerNativeHook();
