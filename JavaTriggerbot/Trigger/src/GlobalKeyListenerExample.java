@@ -123,6 +123,74 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 				
 			}).start();
 		}
+		
+		
+		
+		if(NativeKeyEvent.getKeyText(e.getKeyCode()) == "U") {
+			System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
+			new Thread(() -> {
+				
+				int i = 1;				
+				Dimension size = Toolkit.getDefaultToolkit().getScreenSize();		        		       
+		        int width = (int)size.getWidth();		        		   
+		        int height = (int)size.getHeight();
+		        
+		        System.out.println("Current Screen resolution : " + "width : " + width + " height : " + height);		        
+		        int X = width / 2 + 7;
+		        int Y = 5;				
+				 try {
+					 Robot robot = new Robot();					 					
+					 TimeUnit.MILLISECONDS.sleep(200);
+					 Color color = new Color(112, 20, 25);
+					 
+						
+						
+						for(i = 1; i > 0; i++) {
+							Color color2 = robot.getPixelColor(X, Y);
+							if(color2.getRed() >= 100 && color2.getGreen() < 100 && color2.getBlue() < 100) {
+								System.out.println("Timer Start");
+								
+								TimerStart();
+								
+							
+								System.out.println("Red   = " + (color2.getRed()));
+								System.out.println("Green = " + (color2.getGreen()));
+								System.out.println("Blue  = " + (color2.getBlue()));
+								i = -1;
+							}
+
+						
+							
+							}
+				} catch (AWTException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+			}).start();
+		}
+	}
+	
+	
+	public static void TimerStart() {
+		new Thread(() -> {
+			ColorPreview.setBackground(Color.decode("#ed7615"));
+			ColorPreview.setForeground(Color.decode("#1a1a1a"));
+			for (int i = 40; i >= 0; i--) {
+				ColorPreview.setText("" + i);
+	            System.out.println(i);
+	            try {
+	                Thread.sleep(1000); // Sleep for 1 second (1000 milliseconds)
+	            } catch (InterruptedException e) {
+	                e.printStackTrace();
+	            }
+	        }
+		}).start();
 	}
 
 	public void nativeKeyTyped(NativeKeyEvent e) {
