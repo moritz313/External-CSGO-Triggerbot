@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Trigger/src/icon (2).png&apos; to &apos;icon.png&apos;" description="Rename resource &apos;icon (2).png&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/icon (2).png" name="icon.png" stamp="1694530173965" updateReferences="true"/>
+</session>

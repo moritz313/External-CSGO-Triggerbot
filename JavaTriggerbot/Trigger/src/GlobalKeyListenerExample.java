@@ -30,8 +30,40 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 	}
 	
 	
+	boolean open = false;
+	boolean firsttime = true;
+	Menu frame2 = new Menu();
+	
+	
 
 	public void nativeKeyReleased(NativeKeyEvent e) {
+		
+        
+        
+        if(NativeKeyEvent.getKeyText(e.getKeyCode()) == "I") {
+        	if(firsttime) {
+    			frame2.setBackground(new Color(0, 250, 0, 240));
+    			frame2.setAlwaysOnTop(true);      
+    			try {
+					frame2.setIconImage(Toolkit.getDefaultToolkit().getImage(new URL("https://i.imgur.com/aRNJytN.png")));
+				} catch (MalformedURLException e1) {
+					
+				}
+    			
+        	}
+			if(open) {
+				open = false;
+				frame2.setVisible(false);	
+				System.out.println("Menu Closed");
+			} else {
+				open = true;
+				
+				
+				frame2.setVisible(true);
+				System.out.println("Menu Opened");
+				System.out.println("Key Released: " + NativeKeyEvent.getKeyText(e.getKeyCode()));
+			}
+		}
 		
 		
 		if(NativeKeyEvent.getKeyText(e.getKeyCode()) == "O") {
@@ -69,7 +101,7 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 								robot.mousePress(16);
 								robot.mouseRelease(16);
 								
-								 
+							
 								System.out.println("Red   = " + (color2.getRed() - color.getRed()));
 								System.out.println("Green = " + (color2.getGreen() -color.getGreen()));
 								System.out.println("Blue  = " + (color2.getBlue() - color.getBlue()));
@@ -107,7 +139,11 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
         frame.setAlwaysOnTop(true);      
         frame.getRootPane().putClientProperty("apple.awt.draggableWindowBackground", false);              
         frame.getContentPane().setLayout(new java.awt.BorderLayout());
-        frame.getContentPane().add(ColorPreview, java.awt.BorderLayout.NORTH); 
+        frame.getContentPane().add(ColorPreview, java.awt.BorderLayout.NORTH);
+        
+        
+        
+        
         try {
 			frame.setIconImage(Toolkit.getDefaultToolkit().getImage(new URL("https://i.imgur.com/qkXvGpd.png")));
 		} catch (MalformedURLException e) {
@@ -127,6 +163,8 @@ public class GlobalKeyListenerExample implements NativeKeyListener {
 		}
 
 		GlobalScreen.addNativeKeyListener(new GlobalKeyListenerExample());
+		
+		
 		
 
 	}
